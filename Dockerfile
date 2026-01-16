@@ -1,4 +1,7 @@
-FROM php:8.2-fpm
+FROM php:8.2-apache
+
+# Enable Apache rewrite
+RUN a2enmod rewrite
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -10,30 +13,34 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev
 
-# Install PHP extensions
+# PHP extensions
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
-# Install Composer
+# Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Set working directory
-WORKDIR /var/www
+WORKDIR /var/www/html
 
-# Copy project files
+# Copy source
 COPY . .
 
-# Install PHP dependencies
+# Apache config
+RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
+
+# Install dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Set permissions
+# Permission
 RUN chmod -R 775 storage bootstrap/cache
 
-# Expose port
+# Laravel optimize
+RUN php artisan config:clear && php artisan route:clear
+
+# Expose port Render uses
 EXPOSE 10000
 
-# Final command to run migrations, seed database, and start the server
+# Start script
 CMD php artisan migrate --force \
  && php artisan db:seed --force \
- && php artisan serve --host=0.0.0.0 --port=10000
-
-
+ && apache2-foreground
