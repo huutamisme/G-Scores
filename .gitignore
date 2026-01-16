@@ -22,3 +22,8 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+# Ignore all storage files
+/storage/*
+
+# Allow CSV for seeder
+!/storage/app/diem_thi_thpt_2024.csv
