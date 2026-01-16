@@ -17,12 +17,51 @@ class Student extends Model
         'lich_su',
         'dia_li',
         'gdcd',
-        'ma_ngoai_ngu'
+        'ma_ngoai_ngu',
     ];
 
-    public function getGroupAScoreAttribute(): float
+    /* Các khối thi và môn tương ứng */
+    public const BLOCKS = [
+        'A00' => ['toan', 'vat_li', 'hoa_hoc'],
+        'A01' => ['toan', 'vat_li', 'ngoai_ngu'],
+        'B00' => ['toan', 'hoa_hoc', 'sinh_hoc'],
+        'D01' => ['toan', 'ngu_van', 'ngoai_ngu'],
+    ];
+
+    public static function getSubjectsByBlock(string $block): array
     {
-        return ($this->toan ?? 0) + ($this->vat_li ?? 0) + ($this->hoa_hoc ?? 0);
+        return self::BLOCKS[$block] ?? self::BLOCKS['A00'];
+    }
+
+    public function totalScore(string $block): float
+    {
+        $subjects = self::getSubjectsByBlock($block);
+
+        return collect($subjects)
+            ->map(fn ($subject) => $this->{$subject} ?? 0)
+            ->sum();
+    }
+
+    public function scopeTopByBlock($query, string $block, int $limit = 10)
+    {
+        $subjects = self::getSubjectsByBlock($block);
+
+        return $query
+            ->whereNotNull($subjects[0])
+            ->whereNotNull($subjects[1])
+            ->whereNotNull($subjects[2])
+            ->select([
+                'id',
+                'sbd',
+                $subjects[0],
+                $subjects[1],
+                $subjects[2],
+            ])
+            ->selectRaw(
+                "{$subjects[0]} + {$subjects[1]} + {$subjects[2]} as total_score"
+            )
+            ->orderByDesc('total_score')
+            ->orderByDesc($subjects[0])
+            ->limit($limit);
     }
 }
-

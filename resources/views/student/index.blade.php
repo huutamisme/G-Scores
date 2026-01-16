@@ -22,7 +22,6 @@
                                     class="form-control @error('sbd') is-invalid @enderror">
                             </div>
 
-                            {{-- LỖI 1 & 2: nhập sai định dạng --}}
                             @error('sbd')
                                 <div class="text-danger text-start mb-3">
                                     <i class="bi bi-exclamation-circle"></i> {{ $message }}

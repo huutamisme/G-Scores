@@ -45,7 +45,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">
+                    <a class="nav-link text-white" href="/student/leaderboard">
                         <i class="bi bi-trophy me-2"></i>
                         Bảng xếp hạng theo khối
                     </a>
