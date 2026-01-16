@@ -24,7 +24,7 @@
             @foreach($topStudents->take(3) as $index => $student)
                 <div class="col-md-4">
                     <div class="card text-center shadow 
-                            {{ $index == 0 ? 'border-warning' :
+                                                    {{ $index == 0 ? 'border-warning' :
                         ($index == 1 ? 'border-secondary' : 'border-bronze') }}">
                         <div class="card-body">
                             <h1>
@@ -48,33 +48,50 @@
     @endif
     <div class="card">
         <div class="card-body">
-            <table class="table table-hover text-center align-middle">
-                <thead class="table-light">
-                    <tr>
-                        <th>Hạng</th>
-                        <th>SBD</th>
-                        <th>{{ strtoupper($subjects[0]) }}</th>
-                        <th>{{ strtoupper($subjects[1]) }}</th>
-                        <th>{{ strtoupper($subjects[2]) }}</th>
-                        <th>Tổng</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($topStudents as $index => $student)
-                        <tr class="{{ $index < 3 ? 'table-warning fw-bold' : '' }}">
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $student->sbd }}</td>
-                            <td>{{ $student->{$subjects[0]} }}</td>
-                            <td>{{ $student->{$subjects[1]} }}</td>
-                            <td>{{ $student->{$subjects[2]} }}</td>
-                            <td class="text-primary fw-bold">
-                                {{ $student->total_score }}
-                            </td>
+
+            <div class="table-responsive">
+                <table class="table table-hover text-center align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Hạng</th>
+                            <th>SBD</th>
+
+                            <!-- Ẩn trên mobile -->
+                            <th class="d-none d-md-table-cell">{{ strtoupper($subjects[0]) }}</th>
+                            <th class="d-none d-md-table-cell">{{ strtoupper($subjects[1]) }}</th>
+                            <th class="d-none d-md-table-cell">{{ strtoupper($subjects[2]) }}</th>
+
+                            <th>Tổng</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+
+                    <tbody>
+                        @foreach($topStudents as $index => $student)
+                            <tr class="{{ $index < 3 ? 'table-warning fw-bold' : '' }}">
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ $student->sbd }}</td>
+
+                                <td class="d-none d-md-table-cell">
+                                    {{ $student->{$subjects[0]} }}
+                                </td>
+                                <td class="d-none d-md-table-cell">
+                                    {{ $student->{$subjects[1]} }}
+                                </td>
+                                <td class="d-none d-md-table-cell">
+                                    {{ $student->{$subjects[2]} }}
+                                </td>
+
+                                <td class="text-primary fw-bold">
+                                    {{ $student->total_score }}
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     </div>
+
 
 @endsection
