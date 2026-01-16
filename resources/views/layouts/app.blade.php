@@ -10,6 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         body {
             overflow-x: hidden;
@@ -27,17 +28,39 @@
     <div id="sidebar">
         <!-- Nút toggle -->
         <button id="toggleBtn" onclick="toggleSidebar()">
-            <i class="bi bi-chevron-left"></i>
+            <i id="toggleIcon" class="bi bi-chevron-left"></i>
         </button>
 
         <div class="p-3">
-            <h5>G-Scores</h5>
+            <h5 class="mb-3">
+                <i class="bi bi-bar-chart-fill me-2"></i> G-Scores
+            </h5>
+
             <ul class="nav flex-column">
-                <li class="nav-item"><a class="nav-link text-white" href="#">Dashboard</a></li>
-                <li class="nav-item"><a class="nav-link text-white" href="#">Search Scores</a></li>
-                <li class="nav-item"><a class="nav-link text-white" href="#">Reports</a></li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/student">
+                        <i class="bi bi-search me-2"></i>
+                        Tra cứu điểm THPT
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">
+                        <i class="bi bi-trophy me-2"></i>
+                        Bảng xếp hạng theo khối
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">
+                        <i class="bi bi-graph-up-arrow me-2"></i>
+                        Thống kê & báo cáo
+                    </a>
+                </li>
             </ul>
         </div>
+
+
     </div>
 
     <div id="content">
@@ -50,15 +73,21 @@
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const content = document.getElementById('content');
-            const btn = document.getElementById('toggleBtn');
+            const icon = document.getElementById('toggleIcon');
 
             sidebar.classList.toggle('hide');
             content.classList.toggle('full');
 
-            // Đổi icon
-            btn.innerHTML = sidebar.classList.contains('hide') ? '❯' : '❮';
+            if (sidebar.classList.contains('hide')) {
+                icon.classList.remove('bi-chevron-left');
+                icon.classList.add('bi-chevron-right');
+            } else {
+                icon.classList.remove('bi-chevron-right');
+                icon.classList.add('bi-chevron-left');
+            }
         }
     </script>
+
 
 
 </body>
