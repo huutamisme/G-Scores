@@ -31,5 +31,9 @@ RUN chmod -R 775 storage bootstrap/cache
 # Expose port
 EXPOSE 10000
 
-# Start Laravel
-CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=10000
+# Final command to run migrations, seed database, and start the server
+CMD php artisan migrate --force \
+ && php artisan db:seed --force \
+ && php artisan serve --host=0.0.0.0 --port=10000
+
+
