@@ -54,4 +54,26 @@ class StudentController extends Controller
             'topStudents' => $topStudents,
         ]);
     }
+
+    public function report(Request $request)
+    {
+        $subject = $request->get('subject', 'toan');
+
+        if (!array_key_exists($subject, Student::SUBJECTS)) {
+            $subject = 'toan';
+        }
+
+        $stats = [
+            '>=8' => Student::where($subject, '>=', 8)->count(),
+            '6-8' => Student::where($subject, '<', 8)->where($subject, '>=', 6)->count(),
+            '4-6' => Student::where($subject, '<', 6)->where($subject, '>=', 4)->count(),
+            '<4'  => Student::where($subject, '<', 4)->count(),
+        ];
+
+        return view('student.report', [
+            'subjects' => Student::SUBJECTS,
+            'subject' => $subject,
+            'stats' => $stats,
+        ]);
+    }
 }

@@ -28,6 +28,25 @@ class Student extends Model
         'D01' => ['toan', 'ngu_van', 'ngoai_ngu'],
     ];
 
+    public const SUBJECTS = [
+        'toan' => 'Toán',
+        'ngu_van' => 'Ngữ văn',
+        'ngoai_ngu' => 'Ngoại ngữ',
+        'vat_li' => 'Vật lí',
+        'hoa_hoc' => 'Hóa học',
+        'sinh_hoc' => 'Sinh học',
+        'lich_su' => 'Lịch sử',
+        'dia_li' => 'Địa lí',
+        'gdcd' => 'GDCD',
+    ];
+
+    public const SCORE_LEVELS = [
+        '>=8' => [8, 10],
+        '6-8' => [6, 8],
+        '4-6' => [4, 6],
+        '<4'  => [0, 4],
+    ];
+
     public static function getSubjectsByBlock(string $block): array
     {
         return self::BLOCKS[$block] ?? self::BLOCKS['A00'];

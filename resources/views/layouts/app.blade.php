@@ -52,7 +52,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">
+                    <a class="nav-link text-white" href="/student/report">
                         <i class="bi bi-graph-up-arrow me-2"></i>
                         Thống kê & báo cáo
                     </a>
