@@ -14,18 +14,94 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
     <style>
         body {
+            font-family: 'Rubik', system-ui, -apple-system, BlinkMacSystemFont,
+                'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
             overflow-x: hidden;
+
         }
 
         #sidebar {
             width: 250px;
             min-height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: #212529;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        /* Sidebar ẩn */
+        #sidebar.hide {
+            transform: translateX(-250px);
+        }
+
+        /* Nút toggle */
+        #toggleBtn {
+            position: absolute;
+            top: 50%;
+            right: -15px;
+            /* đẩy ra sát mép phải */
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            border-radius: 20px;
+            border: none;
+            background: #0d6efd;
+            color: white;
+            cursor: pointer;
+        }
+
+        li {
+            border-radius: 4px;
+        }
+
+        li:hover {
+            background-color: #0d6efd;
+            cursor: pointer;
+        }
+
+        /* Content */
+        #content {
+            margin-left: 250px;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
+
+        #content.full {
+            margin-left: 0;
+        }
+
+
+        .card {
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .score {
+            font-weight: bold;
+            color: #0d6efd;
+        }
+
+        .subject {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .subject:last-child {
+            border-bottom: none;
+        }
+
+        .border-bronze {
+            border: 2px solid #cd7f32;
         }
     </style>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="">
 </head>
 
 <body>
